@@ -9,9 +9,26 @@ import static Utils.Constants.DRIVERS_PATH;
 
 public class BrowserUtils {
 
+    public static Browsers getBrowser(String browser) {
+        switch (browser.toLowerCase()) {
+            case "firefox": {
+                return Browsers.FIREFOX;
+            }
+            case "chrome": {
+                return Browsers.CHROME;
+            }
+            case "edge": {
+                return Browsers.EDGE;
+            }
+            default: {
+                return null;
+            }
+        }
+    }
+
     public static WebDriver getDriver(String browser) {
         WebDriver driver = null;
-        switch (browser) {
+        switch (browser.toLowerCase()) {
             case "chrome" : {
                 System.setProperty("webdriver.chrome.driver", DRIVERS_PATH + "chromedriver.exe");
                 driver = new ChromeDriver();
