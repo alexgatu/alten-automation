@@ -36,7 +36,9 @@ public class TestNgClasses {
     @AfterMethod
     public void afterMethod(){
         System.out.println("AFTER TEST");
-        driver.close();
+        if (driver != null) {
+            driver.close();
+        }
     }
 
     @AfterClass

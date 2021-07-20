@@ -41,7 +41,9 @@ public class TestClasses {
     @After
     public void afterTest() {
         System.out.println("This is the After method that runs after each tests !");
-        driver.close();
+        if (driver != null) {
+            driver.close();
+        }
     }
 
     @AfterClass

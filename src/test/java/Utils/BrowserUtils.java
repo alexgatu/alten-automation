@@ -1,5 +1,6 @@
 package Utils;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -56,17 +57,23 @@ public class BrowserUtils {
         WebDriver driver = null;
         switch (browser) {
             case CHROME : {
-                System.setProperty("webdriver.chrome.driver", DRIVERS_PATH + "chromedriver.exe");
+                // TODO: continue environment selection at the automation env course!
+                if (Constants.CURRENT_ENV.equals("local")) {
+                    WebDriverManager.chromedriver().setup();
+                }
+                else {
+                    System.setProperty("webdriver.chrome.driver", DRIVERS_PATH + "chromedriver.exe");
+                }
                 driver = new ChromeDriver();
                 break;
             }
             case FIREFOX: {
-                System.setProperty("webdriver.gecko.driver",DRIVERS_PATH + "geckodriver.exe");
+                WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver();
                 break;
             }
             case EDGE : {
-                System.setProperty("webdriver.edge.driver", DRIVERS_PATH + "msedgedriver.exe");
+                WebDriverManager.edgedriver().setup();
                 driver = new EdgeDriver();
                 break;
             }
