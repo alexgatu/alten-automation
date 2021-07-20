@@ -27,9 +27,25 @@ public class TestClasses {
         driver.navigate().to(URL_BASE);
     }
 
-    @Test
+    private void doSomething() throws IllegalArgumentException {
+        throw new IllegalArgumentException("illegal !!");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void test01() {
         System.out.println("This is my very first test !");
+//        String s = "Alex";
+//        String s2;
+//        Assert.assertEquals("String assertion", s, "Alex");
+//        int a = 5;
+//        int b = 10;
+//        Assert.assertEquals("Integer assertion", 15, a + b );
+//        Assert.assertFalse(a + b != 15);
+//        Assert.assertNotNull(driver);
+        String searchQuery = "disney"; // search keyword
+        String title =  "Povesti din colectia de aur <mark>Disney</mark>  Nr. 82 - Salvatorii in Australia"; // title extracted from site
+        Assert.assertTrue(title.toLowerCase().contains(searchQuery));
+        doSomething();
     }
 
     @Test
