@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import static Utils.Constants.DRIVERS_PATH;
+import static Utils.ConstantsUtils.DRIVERS_PATH;
 
 public class BrowserUtils {
 
@@ -58,7 +58,7 @@ public class BrowserUtils {
         switch (browser) {
             case CHROME : {
                 // TODO: continue environment selection at the automation env course!
-                if (Constants.CURRENT_ENV.equals("local")) {
+                if (ConstantsUtils.CURRENT_ENV.equals("local")) {
                     WebDriverManager.chromedriver().setup();
                 }
                 else {
