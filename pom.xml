@@ -17,7 +17,7 @@
         <testng-version>7.0.0</testng-version>
         <selenium-version>3.141.59</selenium-version>
         <webdrivermanager-version>4.4.3</webdrivermanager-version>
-        <extentreport-version>5.0.8</extentreport-version>
+        <extentreport-version>3.1.5</extentreport-version>
     </properties>
     <build>
         <plugins>
@@ -34,6 +34,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire-version}</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
             </plugin>
         </plugins>
     </build>

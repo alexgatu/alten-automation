@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Alten Auto Tests" verbose="1">
+    <listeners>
+        <listener class-name="Utils.ExtentReport.TestListener"></listener>
+    </listeners>
+    <test name="TESTNG tests">
+        <packages>
+            <package name="Tests.TestNgTests"></package>
+        </packages>
+    </test>
+</suite>
