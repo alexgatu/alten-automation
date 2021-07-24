@@ -1,5 +1,6 @@
 package Utils.ExtentReport;
 
+import Utils.ConstantsUtils;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
@@ -14,7 +15,9 @@ public class ExtentManager {
     private static ExtentReports extent;
     private static Platform platform;
     private static Timestamp tstamp = new Timestamp(System.currentTimeMillis());
-    private static String reportFilename = "Test_Automation_Report_" + tstamp.getTime() + ".html";
+    private static String reportFilename = "Test_Automation_Report_" +
+            ConstantsUtils.CURRENT_BROWSER + "_" +
+            tstamp.getTime() + ".html";
     private static String windowsPath = System.getProperty("user.dir") + "\\TestReport";
     private static String winReportFileLocation =windowsPath + "\\" + reportFilename;
 
