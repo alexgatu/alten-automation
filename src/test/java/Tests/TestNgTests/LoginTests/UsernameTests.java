@@ -3,13 +3,15 @@ package Tests.TestNgTests.LoginTests;
 import Tests.TestNgTests.BaseClass;
 import org.testng.annotations.Test;
 
+import static Utils.ConstantsUtils.URL_BASE;
+
 public class UsernameTests extends BaseClass {
 
     //ALT-538:Username with more than maximum length
     @Test
     public void usernameMoreMaxLength() {
         // Go to authentication page
-        driver.get("http://86.121.249.150:4999/#/login");
+        driver.get(URL_BASE + "#/login");
 
         // Verify that the login page is displayed
         // Assert that the "Authentication" text is present on the page
@@ -25,7 +27,7 @@ public class UsernameTests extends BaseClass {
     @Test
     public void usernameMinimumLength(){
         // Go to authentication page
-        driver.get("http://86.121.249.150:4999/#/login");
+        driver.get(URL_BASE + "#/login");
 
         // Verify that the login page is displayed
         // Assert that the "Authentication" text is present on the page
@@ -42,7 +44,7 @@ public class UsernameTests extends BaseClass {
     @Test
     public void usernameLessMinLength() {
         // Go to authentication page
-        driver.get("http://86.121.249.150:4999/#/login");
+        driver.get(URL_BASE + "#/login");
 
         // Verify that the login page is displayed
         // Assert that the "Authentication" text is present on the page
@@ -58,7 +60,7 @@ public class UsernameTests extends BaseClass {
     @Test
     public void usernameMaxLength() {
         // Go to authentication page
-        driver.get("http://86.121.249.150:4999/#/login");
+        driver.get(URL_BASE + "#/login");
 
         // Verify that the login page is displayed
         // Assert that the "Authentication" text is present on the page
@@ -74,7 +76,7 @@ public class UsernameTests extends BaseClass {
     @Test
     public void usernameSpecialChars() {
         // Go to authentication page
-        driver.get("http://86.121.249.150:4999/#/login");
+        driver.get(URL_BASE + "#/login");
 
         // Verify that the login page is displayed
         // Assert that the "Authentication" text is present on the page
@@ -90,7 +92,7 @@ public class UsernameTests extends BaseClass {
     @Test
     public void usernameAlphanumeric() {
         // Go to authentication page
-        driver.get("http://86.121.249.150:4999/#/login");
+        driver.get(URL_BASE + "#/login");
 
         // Verify that the login page is displayed
         // Assert that the "Authentication" text is present on the page
@@ -106,7 +108,7 @@ public class UsernameTests extends BaseClass {
     @Test
     public void usernameNull(){
         // Go to authentication page
-        driver.get("http://86.121.249.150:4999/#/login");
+        driver.get(URL_BASE + "#/login");
 
         // Verify that the login page is displayed
         // Assert that the "Authentication" text is present on the page
@@ -122,7 +124,7 @@ public class UsernameTests extends BaseClass {
     @Test
     public void usernameRegistered() {
         // Go to authentication page
-        driver.get("http://86.121.249.150:4999/#/login");
+        driver.get(URL_BASE + "#/login");
 
         // Verify that the login page is displayed
         // Assert that the "Authentication" text is present on the page
@@ -138,7 +140,7 @@ public class UsernameTests extends BaseClass {
     @Test
     public void usernameUnregistered() {
         // Go to authentication page
-        driver.get("http://86.121.249.150:4999/#/login");
+        driver.get(URL_BASE + "#/login");
 
         // Verify that the login page is displayed
         // Assert that the "Authentication" text is present on the page

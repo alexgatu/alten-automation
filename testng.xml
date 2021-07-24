@@ -7,7 +7,8 @@
     </listeners>
     <test name="TESTNG tests">
         <packages>
-            <package name="Tests.TestNgTests"></package>
+            <package name="Tests.TestNgTests.LoginTests"></package>
+            <package name="Tests.TestNgTests.DemoTests"></package>
         </packages>
     </test>
 </suite>

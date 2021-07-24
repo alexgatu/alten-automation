@@ -2,7 +2,7 @@ package Tests.JunitTests;
 
 import org.junit.*;
 
-import static Utils.ConstantsUtils.URL_BASE;
+import static Utils.ConstantsUtils.URL_BASE2;
 
 public class TestClasses extends BaseClassJunit {
 
@@ -14,7 +14,7 @@ public class TestClasses extends BaseClassJunit {
     @Test(expected = IllegalArgumentException.class)
     public void test01() {
         System.out.println("This is my very first test !");
-        driver.navigate().to(URL_BASE);
+        driver.navigate().to(URL_BASE2);
 //        String s = "Alex";
 //        String s2;
 //        Assert.assertEquals("String assertion", s, "Alex");
@@ -33,7 +33,7 @@ public class TestClasses extends BaseClassJunit {
     public void test02() {
         System.out.println("test 02");
         // identify the search button place a string and hit run
-        driver.navigate().to(URL_BASE);
+        driver.navigate().to(URL_BASE2);
     }
 
 
