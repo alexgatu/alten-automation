@@ -24,13 +24,15 @@ public class ConfigReader {
             URL = proto + "://" + hostname + ":" + port + "/";
             ENV = props.getProperty("CURRENT_ENV");
             BROWSER = props.getProperty("RUN_BROWSER");
-            //System.out.println(URL);
+            Log.info(URL);
         }
         catch (FileNotFoundException fnf) {
-            System.out.println("File not found !");
+            Log.error("File not found: " + CONFIG_PATH + CONFIG_FILE);
+            Log.fatal(GeneralUtils.stackTraceConvert(fnf.getStackTrace()));
         }
         catch (IOException ioex) {
-            System.out.println("IO Exception !");
+            Log.error(ioex.getMessage());
+            Log.fatal(GeneralUtils.stackTraceConvert(ioex.getStackTrace()));
         }
 
     }
@@ -44,10 +46,11 @@ public class ConfigReader {
             props.store(output, null);
         }
         catch (FileNotFoundException fnf) {
-            System.out.println("File not found !");
+            Log.error("File not found: " + CONFIG_PATH + CONFIG_FILE);
+            Log.fatal(GeneralUtils.stackTraceConvert(fnf.getStackTrace()));
         }
         catch (IOException ioex) {
-            System.out.println("IO Exception !");
+            Log.fatal(GeneralUtils.stackTraceConvert(ioex.getStackTrace()));
         }
     }
 }
