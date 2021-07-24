@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import static Utils.BrowserUtils.getBrowser;
 
 public class BaseClass {
-    WebDriver driver;
+    public WebDriver driver;
 
     @BeforeClass
     public void beforeAll(){
