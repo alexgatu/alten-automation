@@ -24,15 +24,16 @@ public class ConfigReader {
             URL = proto + "://" + hostname + ":" + port + "/";
             ENV = props.getProperty("CURRENT_ENV");
             BROWSER = props.getProperty("RUN_BROWSER");
-            Log.info(URL);
+            //Log.info(URL);
         }
         catch (FileNotFoundException fnf) {
-            Log.error("File not found: " + CONFIG_PATH + CONFIG_FILE);
-            Log.fatal(GeneralUtils.stackTraceConvert(fnf.getStackTrace()));
+            System.out.println("File not found: " + CONFIG_PATH + CONFIG_FILE);
+            //Log.error("File not found: " + CONFIG_PATH + CONFIG_FILE);
+            //Log.fatal(GeneralUtils.stackTraceConvert(fnf.getStackTrace()));
         }
         catch (IOException ioex) {
-            Log.error(ioex.getMessage());
-            Log.fatal(GeneralUtils.stackTraceConvert(ioex.getStackTrace()));
+            //Log.error(ioex.getMessage());
+            //Log.fatal(GeneralUtils.stackTraceConvert(ioex.getStackTrace()));
         }
 
     }
@@ -46,11 +47,11 @@ public class ConfigReader {
             props.store(output, null);
         }
         catch (FileNotFoundException fnf) {
-            Log.error("File not found: " + CONFIG_PATH + CONFIG_FILE);
-            Log.fatal(GeneralUtils.stackTraceConvert(fnf.getStackTrace()));
+            //Log.error("File not found: " + CONFIG_PATH + CONFIG_FILE);
+            //Log.fatal(GeneralUtils.stackTraceConvert(fnf.getStackTrace()));
         }
         catch (IOException ioex) {
-            Log.fatal(GeneralUtils.stackTraceConvert(ioex.getStackTrace()));
+            //Log.fatal(GeneralUtils.stackTraceConvert(ioex.getStackTrace()));
         }
     }
 }

@@ -48,21 +48,21 @@ public class BrowserUtils {
                 break;
             }
             default: {
-                Log.fatal("Illegal argument for browser " + browser);
+                //Log.fatal("Illegal argument for browser " + browser);
                 throw new IllegalArgumentException("The value provided for the browser type is illegal: " + browser);
             }
         }
-        Log.info("Tests are running with browser: " + browser);
+        //Log.info("Tests are running with browser: " + browser);
         return driver;
     }
 
     private static boolean isWebDriverManagerRun() {
-        if (CURRENT_ENV.toLowerCase().contains("local")) {
-            Log.debug("Running on environment " + CURRENT_ENV + " with WebDriverManager.");
+        if (ConfigReader.ENV.toLowerCase().contains("local")) {
+            //Log.debug("Running on environment " + CURRENT_ENV + " with WebDriverManager.");
             return true;
         }
         else {
-            Log.debug("Running on environment " + CURRENT_ENV + " with System properties for browsers.");
+            //Log.debug("Running on environment " + CURRENT_ENV + " with System properties for browsers.");
             return false;
         }
     }
@@ -101,11 +101,15 @@ public class BrowserUtils {
                 break;
             }
             default: {
-                Log.fatal("Illegal argument for browser " + browser);
+                //Log.fatal("Illegal argument for browser " + browser);
                 throw new IllegalArgumentException("The value provided for the browser type is illegal: " + browser);
             }
         }
-        Log.info("Tests are running with browser: " + browser);
+        //Log.info("Tests are running with browser: " + browser);
+        if (driver == null) {
+            WebDriverManager.firefoxdriver().setup();
+            return new FirefoxDriver();
+        }
         return driver;
     }
 

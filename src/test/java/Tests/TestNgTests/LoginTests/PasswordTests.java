@@ -3,7 +3,7 @@ package Tests.TestNgTests.LoginTests;
 import Tests.TestNgTests.BaseClass;
 import org.testng.annotations.Test;
 
-import static Utils.ConstantsUtils.URL_BASE;
+import static Utils.ConfigReader.URL;
 
 public class PasswordTests extends BaseClass {
 
@@ -12,7 +12,7 @@ public class PasswordTests extends BaseClass {
     */
     @Test
     public void passwordLessMin() {
-        driver.get(URL_BASE + "#/login");
+        driver.get(URL + "#/login");
         // Assert that the "Authentication" text is present on the page
         // Identify the username field and input a valid user
         // Identify the password field insert a random password with 7 characters
@@ -25,7 +25,7 @@ public class PasswordTests extends BaseClass {
      */
     @Test
     public void passwordMinLength() {
-        driver.get(URL_BASE + "#/login");
+        driver.get(URL + "#/login");
         // Assert that the "Authentication" text is present on the page
         // Identify the username field and input a valid user
         // Identify the password field insert a random password with 8 characters
@@ -38,7 +38,7 @@ public class PasswordTests extends BaseClass {
      */
     @Test
     public void passwordMaxLength() {
-        driver.get(URL_BASE + "#/login");
+        driver.get(URL + "#/login");
         // Assert that the "Authentication" text is present on the page
         // Identify the username field and input a valid user
         // Identify the password field insert a random password with 20 characters
@@ -51,7 +51,7 @@ public class PasswordTests extends BaseClass {
      */
     @Test
     public void passwordMoreMax() {
-        driver.get(URL_BASE + "#/login");
+        driver.get(URL + "#/login");
         // Assert that the "Authentication" text is present on the page
         // Identify the username field and input a valid user
         // Identify the password field insert a random password with 21 characters
@@ -64,7 +64,7 @@ public class PasswordTests extends BaseClass {
      */
     @Test
     public void passwordCharsetTest() {
-        driver.get(URL_BASE + "#/login");
+        driver.get(URL + "#/login");
         // Assert that the "Authentication" text is present on the page
         // Identify the username field and input a valid user
         // Identify the password field insert a random password between 8-20 characters with special and alphanumeric chars
@@ -77,7 +77,7 @@ public class PasswordTests extends BaseClass {
      */
     @Test
     public void passwordNull() {
-        driver.get(URL_BASE + "#/login");
+        driver.get(URL + "#/login");
         // Assert that the "Authentication" text is present on the page
         // Identify the username field and input a valid user
         // Identify the password field and clear the field
@@ -91,7 +91,7 @@ public class PasswordTests extends BaseClass {
      */
     @Test
     public void passwordUsernameRegistered() {
-        driver.get(URL_BASE + "#/login");
+        driver.get(URL + "#/login");
         // Assert that the "Authentication" text is present on the page
         // Identify the username field and input a valid user
         // Identify the password field and input a valid password for that user

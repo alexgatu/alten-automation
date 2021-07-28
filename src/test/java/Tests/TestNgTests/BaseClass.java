@@ -29,7 +29,11 @@ public class BaseClass {
     @BeforeMethod
     public void beforeTests() {
 //        System.out.println("BEFORE TEST");
-        driver = BrowserUtils.getDriver(getBrowser(ConstantsUtils.CURRENT_BROWSER));
+       // System.out.println(ConstantsUtils.CURRENT_BROWSER);
+        System.out.println("URL: " + ConfigReader.URL);
+        System.out.println("BROWSER: " + getBrowser(ConfigReader.BROWSER));
+        System.out.println("ENV: " + ConfigReader.ENV);
+        driver = BrowserUtils.getDriver(getBrowser(ConfigReader.BROWSER));
     }
 
     @AfterMethod

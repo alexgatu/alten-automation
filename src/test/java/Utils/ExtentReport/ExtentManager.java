@@ -1,5 +1,6 @@
 package Utils.ExtentReport;
 
+import Utils.ConfigReader;
 import Utils.ConstantsUtils;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
@@ -16,7 +17,7 @@ public class ExtentManager {
     private static Platform platform;
     private static Timestamp tstamp = new Timestamp(System.currentTimeMillis());
     private static String reportFilename = "Test_Automation_Report_" +
-            ConstantsUtils.CURRENT_BROWSER + "_" +
+            ConfigReader.BROWSER + "_" +
             tstamp.getTime() + ".html";
     private static String windowsPath = System.getProperty("user.dir") + "\\TestReport";
     private static String winReportFileLocation =windowsPath + "\\" + reportFilename;
