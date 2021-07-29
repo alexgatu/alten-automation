@@ -3,8 +3,12 @@ package Utils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.io.File;
 
 import static Utils.ConstantsUtils.CURRENT_ENV;
 import static Utils.ConstantsUtils.DRIVERS_PATH;
@@ -80,7 +84,11 @@ public class BrowserUtils {
                 else {
                     System.setProperty("webdriver.chrome.driver", DRIVERS_PATH + "chromedriver.exe");
                 }
-                driver = new ChromeDriver();
+                // Deprecated for Chrome
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+                ChromeOptions options = new ChromeOptions();
+                options.addExtensions(new File(ConstantsUtils.EXTENSIONS_PATH + "extension_9_8_3_0.crx"));
+                driver = new ChromeDriver(options);
                 break;
             }
             case FIREFOX: {
@@ -90,6 +98,7 @@ public class BrowserUtils {
                 else {
                     System.setProperty("webdriver.gecko.driver", DRIVERS_PATH + "geckodriver.exe");
                 }
+
                 driver = new FirefoxDriver();
                 break;
             }
@@ -100,6 +109,7 @@ public class BrowserUtils {
                 else {
                     System.setProperty("webdriver.edge.driver", DRIVERS_PATH + "msedgedriver.exe");
                 }
+
                 driver = new EdgeDriver();
                 break;
             }
