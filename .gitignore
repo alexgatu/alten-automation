@@ -1,5 +1,8 @@
 /target
 *.exe
+/resources/extensions
 /resources/drivers
 /drivers
 /TestReport
+/src/test/resources/extensions/
+/downloads

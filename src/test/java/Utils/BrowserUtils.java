@@ -9,9 +9,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
-import static Utils.ConstantsUtils.CURRENT_ENV;
-import static Utils.ConstantsUtils.DRIVERS_PATH;
+import static Utils.ConstantsUtils.*;
 
 public class BrowserUtils {
 
@@ -87,7 +88,21 @@ public class BrowserUtils {
                 // Deprecated for Chrome
                 DesiredCapabilities capabilities = new DesiredCapabilities();
                 ChromeOptions options = new ChromeOptions();
-                options.addExtensions(new File(ConstantsUtils.EXTENSIONS_PATH + "extension_9_8_3_0.crx"));
+
+                // How to add an extension (careful on the headless):
+                //options.addExtensions(new File(ConstantsUtils.EXTENSIONS_PATH + "extension_9_8_3_0.crx"));
+
+                // Start browser maximized:
+                options.addArguments("--start-maximized");
+
+                // Start browser in headless mode (without visible UI), the app is in background:
+                options.setHeadless(true);
+
+                // Change default download directory:
+                Map<String, Object> prefs = new HashMap<>();
+                prefs.put("download.default_directory", DOWNLOAD_PATH);
+                options.setExperimentalOption("prefs", prefs);
+
                 driver = new ChromeDriver(options);
                 break;
             }

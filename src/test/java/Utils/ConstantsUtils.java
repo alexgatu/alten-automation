@@ -8,6 +8,8 @@ public class ConstantsUtils {
     public static final String RESOURCES_PATH="src/test/resources/";
     public static final String DRIVERS_PATH = RESOURCES_PATH + "drivers/" ;
     public static final String EXTENSIONS_PATH = RESOURCES_PATH + "extensions/" ;
+    public static final String DOWNLOAD_PATH = "downloads/";
+
     public static final String CONFIG_PATH = "";
     public static final String CONFIG_FILE = "config.properties";
 
