@@ -12,6 +12,7 @@ public class ConfigReader {
     public static String URL;
     public static String ENV;
     public static String BROWSER;
+    public static boolean WEBDRIVER_MANAGER;
 
     public static void readConfigFile() {
 
@@ -24,6 +25,7 @@ public class ConfigReader {
             URL = proto + "://" + hostname + ":" + port + "/";
             ENV = props.getProperty("CURRENT_ENV");
             BROWSER = props.getProperty("RUN_BROWSER");
+            WEBDRIVER_MANAGER = Boolean.parseBoolean(props.getProperty("WEB_DRIVER_MANAGER"));
             //Log.info(URL);
         }
         catch (FileNotFoundException fnf) {

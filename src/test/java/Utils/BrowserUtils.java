@@ -57,6 +57,9 @@ public class BrowserUtils {
     }
 
     private static boolean isWebDriverManagerRun() {
+        if(ConfigReader.WEBDRIVER_MANAGER) {
+            return true;
+        }
         if (ConfigReader.ENV.toLowerCase().contains("local")) {
             //Log.debug("Running on environment " + CURRENT_ENV + " with WebDriverManager.");
             return true;
