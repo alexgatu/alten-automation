@@ -5,13 +5,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import static Utils.ConfigReader.HEADLESS_MODE;
 import static Utils.ConstantsUtils.*;
 
 public class BrowserUtils {
@@ -96,7 +100,8 @@ public class BrowserUtils {
                 options.addArguments("--start-maximized");
 
                 // Start browser in headless mode (without visible UI), the app is in background:
-                options.setHeadless(true);
+                options.setHeadless(HEADLESS_MODE);
+                //options.addArguments("--headless");
 
                 // Change default download directory:
                 Map<String, Object> prefs = new HashMap<>();
@@ -114,7 +119,34 @@ public class BrowserUtils {
                     System.setProperty("webdriver.gecko.driver", DRIVERS_PATH + "geckodriver.exe");
                 }
 
-                driver = new FirefoxDriver();
+                FirefoxProfile profile = new FirefoxProfile();
+
+                // Add extension:
+                //profile.addExtension(new File(EXTENSIONS_PATH + "metamask-9.8.2-an+fx.xpi"));
+
+                // deprecated - desired capabilities
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+                capabilities.setCapability(FirefoxDriver.PROFILE, profile);
+                // Preferable approach:
+                FirefoxOptions options = new FirefoxOptions();
+
+                // Start maximized:
+                options.addArguments("--start-maximized");
+
+                // Headless mode (no UI):
+                options.setHeadless(HEADLESS_MODE);
+
+                // Change to specific resolution
+                //options.addArguments("--width=1280");
+                //options.addArguments("--height=1024");
+
+                // Change default download directory:
+                profile.setPreference("browser.download.dir", DOWNLOAD_PATH);
+
+                options.setProfile(profile);
+
+                //driver = new FirefoxDriver(capabilities);
+                driver = new FirefoxDriver(options);
                 break;
             }
             case EDGE : {
@@ -124,8 +156,10 @@ public class BrowserUtils {
                 else {
                     System.setProperty("webdriver.edge.driver", DRIVERS_PATH + "msedgedriver.exe");
                 }
+                EdgeOptions options = new EdgeOptions();
+                options.setCapability("args", "['start-maximized']");
 
-                driver = new EdgeDriver();
+                driver = new EdgeDriver(options);
                 break;
             }
             default: {

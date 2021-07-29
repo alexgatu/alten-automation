@@ -13,6 +13,7 @@ public class ConfigReader {
     public static String ENV;
     public static String BROWSER;
     public static boolean WEBDRIVER_MANAGER;
+    public static boolean HEADLESS_MODE;
 
     public static void readConfigFile() {
 
@@ -26,6 +27,7 @@ public class ConfigReader {
             ENV = props.getProperty("CURRENT_ENV");
             BROWSER = props.getProperty("RUN_BROWSER");
             WEBDRIVER_MANAGER = Boolean.parseBoolean(props.getProperty("WEB_DRIVER_MANAGER"));
+            HEADLESS_MODE = Boolean.parseBoolean(props.getProperty("START_HEADLESS"));
             //Log.info(URL);
         }
         catch (FileNotFoundException fnf) {
