@@ -1,8 +1,14 @@
 package Utils;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Set;
 
 public class GeneralUtils {
@@ -40,6 +46,27 @@ public class GeneralUtils {
             }
         }
         return found;
+    }
+
+    public static void takeScreenshot(WebDriver driver) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//        File screenShotFile = new File(ConstantsUtils.SCREENSHOT_PATH +
+//                "screenshot_" + timestamp.getTime() + ".png");
+        // Alternative to construct strings
+        StringBuilder sb = new StringBuilder();
+        sb.append(ConstantsUtils.SCREENSHOT_PATH);
+        sb.append("screenshot_");
+        sb.append(timestamp.getTime());
+        sb.append(".png");
+        File screenShotFile = new File(sb.toString());
+
+        File capturedFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(capturedFile, screenShotFile);
+        }
+        catch (IOException ioex) {
+            System.out.println("Screenshot File could not be saved on the disk !");
+        }
     }
 
 }

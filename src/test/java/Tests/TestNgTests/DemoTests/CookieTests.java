@@ -10,13 +10,14 @@ import java.util.Date;
 import java.util.Set;
 
 import static Utils.ConfigReader.URL;
+import static Utils.ConstantsUtils.URL_BASE2;
 
 public class CookieTests extends BaseClass {
 
     @Test
     public void cookieTest01(){
         //driver.get(URL);
-        driver.get("https://magazinulcolectionarului.ro/");
+        driver.get(URL_BASE2);
         GeneralUtils.printCookies(driver);
 
         // Adding a new Cookie, while on the site
@@ -49,7 +50,9 @@ public class CookieTests extends BaseClass {
 
     @Test
     public void cookieTest02(){
-        driver.get("https://magazinulcolectionarului.ro/");
+        driver.get(URL_BASE2);
+        GeneralUtils.takeScreenshot(driver);
+
         Set<Cookie> cookies = driver.manage().getCookies();
         Cookie phpCookie = driver.manage().getCookieNamed("PHPSESSID");
 
