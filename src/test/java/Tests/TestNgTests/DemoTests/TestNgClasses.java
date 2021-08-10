@@ -2,12 +2,19 @@ package Tests.TestNgTests.DemoTests;
 
 import Tests.TestNgTests.BaseClass;
 import Utils.ConstantsUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
+
+import java.util.List;
 
 import static Utils.ConstantsUtils.URL_BASE2;
 
 public class TestNgClasses extends BaseClass {
+
+    private static String searchTerm = "boxe";
 
     @Test
     public void test01(){
@@ -57,6 +64,34 @@ public class TestNgClasses extends BaseClass {
 
         // click on the refresh button from the browser controlls
         driver.navigate().refresh();
+    }
+
+    @Test
+    public void test04() {
+        driver.get("https://www.google.ro/");
+
+        WebElement agreeTerms = driver.findElement(By.cssSelector("#L2AGLb > div"));
+        agreeTerms.click();
+
+        WebElement searchBox = driver.findElement(By.cssSelector("body > div.L3eUgb > div.o3j99.ikrT4e.om7nvf > form > div:nth-child(1) > div.A8SBwf > div.RNNXgb > div > div.a4bIc > input"));
+        WebElement searchBox2 = driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input"));
+        WebElement searchBox3 = driver.findElement(By.name("q"));
+
+        searchBox3.sendKeys(searchTerm);
+        searchBox3.sendKeys(Keys.ENTER);
+
+        //WebElement firstLink = driver.findElement(By.cssSelector("#rso > div:nth-child(1) > div > div > div > div.yuRUbf > a"));
+        WebElement firstLink = driver.findElement(By.cssSelector("div.yuRUbf > a"));
+        List<WebElement> allLinks = driver.findElements(By.cssSelector("div.yuRUbf > a"));
+
+        System.out.println("Results Links on the page: " + allLinks.size());
+
+        for (WebElement link : allLinks) {
+            System.out.println(link.getText());
+        }
+
+        firstLink.click();
+
     }
 
 
