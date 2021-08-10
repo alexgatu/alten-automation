@@ -1,15 +1,15 @@
 package Utils;
 
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class GeneralUtils {
 
@@ -67,6 +67,19 @@ public class GeneralUtils {
         catch (IOException ioex) {
             System.out.println("Screenshot File could not be saved on the disk !");
         }
+    }
+
+    // Generic wait function
+    public static WebElement waitForGenericElement(WebDriver driver, By by, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+    }
+
+    // Generic wait until specific text appear on the site
+    public static boolean waitUntilText(WebDriver driver, By by, int timeout, String pattern) {
+        Pattern r2 = Pattern.compile(pattern, 0);
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        return wait.until(ExpectedConditions.textMatches(by, r2));
     }
 
 }

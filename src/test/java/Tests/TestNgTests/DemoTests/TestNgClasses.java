@@ -1,15 +1,24 @@
 package Tests.TestNgTests.DemoTests;
 
 import Tests.TestNgTests.BaseClass;
+import Utils.ConfigReader;
 import Utils.ConstantsUtils;
+import Utils.GeneralUtils;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
+import static Utils.ConstantsUtils.URL_BASE;
 import static Utils.ConstantsUtils.URL_BASE2;
 
 public class TestNgClasses extends BaseClass {
@@ -94,5 +103,41 @@ public class TestNgClasses extends BaseClass {
 
     }
 
+    @Test
+    public void test05() {
+        driver.get(ConfigReader.URL);
+        // Implicit wait - valid for all elements identification
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        WebElement waitTab = driver.findElement(By.cssSelector("#root > div > div.sidebar > a:nth-child(7)"));
+        waitTab.click();
+
+        WebElement button = driver.findElement(By.id("answer-trigger"));
+        button.click();
+
+        // Explicit wait - wait for element until
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+
+        // Wait  After text matches a pattern
+        GeneralUtils.waitUntilText(driver, By.cssSelector("div.text-center.the-answer.row > div"),15,"42");
+
+        // Wait until element is present on the page
+        WebElement textWait = GeneralUtils.waitForGenericElement(driver,By.cssSelector("div.text-center.the-answer.row > div"), 10);
+
+        // Thread.sleep is another option that is not recommended !!
+//        try {
+//            Thread.sleep(10);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+//        WebElement textWait = driver.findElement(By.cssSelector("#root > div > div.content > div > div:nth-child(2) > div.text-center.the-answer.row > div"));
+        System.out.println(textWait.getText());
+
+        System.out.println(textWait.getCssValue("color"));
+        System.out.println(button.getCssValue("color"));
+        System.out.println(button.getLocation());
+
+    }
 
 }
