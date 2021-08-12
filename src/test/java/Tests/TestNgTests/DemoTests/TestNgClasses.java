@@ -209,4 +209,56 @@ public class TestNgClasses extends BaseClass {
 
     }
 
+    // stale element test
+    @Test
+    public void test08() {
+        driver.get(ConfigReader.URL);
+
+        WebElement staleTab = driver.findElement(By.cssSelector("#root > div > div.sidebar > a:nth-child(11)"));
+        staleTab.click();
+
+        WebElement pageText = driver.findElement(By.cssSelector("#root > div > div.content > div > div.container > div > div > h1 > small"));
+        Assert.assertEquals(pageText.getText(), "Stale element (work in progress)");
+
+        for (int i=0; i < 100 ; i++) {
+            WebElement staleButton = driver.findElement(By.id("stale-button"));
+            staleButton.click();
+        }
+    }
+
+    // modal test
+    @Test
+    public void test09() {
+        driver.get(ConfigReader.URL);
+
+        WebElement modalTab = driver.findElement(By.cssSelector("#root > div > div.sidebar > a:nth-child(13)"));
+        modalTab.click();
+
+        WebElement modalText = driver.findElement(By.cssSelector("#root > div > div.content > div > div:nth-child(1) > div > div > h1 > small"));
+        Assert.assertEquals(modalText.getText(), "Modal");
+
+        WebElement launchModalButton = driver.findElement(By.cssSelector("#root > div > div.content > div > div.container-table.text-center.container > button"));
+        launchModalButton.click();
+
+        // This worked !!
+//        WebElement closeModal = driver.findElement(By.cssSelector("body > div.fade.modal.show > div > div > div.modal-header > button > span:nth-child(1)"));
+//        closeModal.click();
+
+
+        // This worked also
+//        WebElement closeModal = driver.findElement(By.cssSelector("body > div.fade.modal.show > div > div > div.modal-footer > button"));
+        //closeModal.click();
+
+        // alternative to click on the modal button is to send the ESC key to the modal
+//        closeModal.sendKeys(Keys.ESCAPE);
+
+        // Alternative to dismiss a modal if there is no close button
+        WebElement modalTitle = driver.findElement(By.cssSelector("body > div.fade.modal.show > div > div > div.modal-header > div"));
+        Actions actions = new Actions(driver);
+        actions.click(modalTitle).sendKeys(Keys.ESCAPE).build().perform();
+
+        modalTab.click();
+
+    }
+
 }
