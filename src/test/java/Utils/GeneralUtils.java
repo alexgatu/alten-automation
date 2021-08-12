@@ -82,4 +82,12 @@ public class GeneralUtils {
         return wait.until(ExpectedConditions.textMatches(by, r2));
     }
 
+    public static void genericSleep(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
