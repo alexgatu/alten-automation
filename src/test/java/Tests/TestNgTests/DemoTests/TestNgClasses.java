@@ -5,9 +5,11 @@ import Utils.ConfigReader;
 import Utils.ConstantsUtils;
 import Utils.GeneralUtils;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -137,6 +139,73 @@ public class TestNgClasses extends BaseClass {
         System.out.println(textWait.getCssValue("color"));
         System.out.println(button.getCssValue("color"));
         System.out.println(button.getLocation());
+
+    }
+
+    // simple alert test
+    @Test
+    public void test06() {
+        driver.get(ConfigReader.URL);
+
+        WebElement alertLink = driver.findElement(By.cssSelector("#root > div > div.sidebar > a:nth-child(4)"));
+        alertLink.click();
+
+        WebElement alertButton = driver.findElement(By.id("alert-trigger"));
+//        WebElement alertButton = driver.findElement(By.cssSelector("#alert-trigger"));
+
+        alertButton.click();
+        Alert alert = driver.switchTo().alert();
+
+        System.out.println(alert.getText());
+        Assert.assertTrue(alert.getText().contains("alert"));
+
+        alert.accept();
+
+        WebElement confirmButton = driver.findElement(By.id("confirm-trigger"));
+        confirmButton.click();
+
+        Alert confirm = driver.switchTo().alert();
+        System.out.println(confirm.getText());
+        Assert.assertTrue(confirm.getText().contains("confirmation"));
+
+        confirm.dismiss();
+//        confirm.accept();
+
+        WebElement promptButton = driver.findElement(By.id("prompt-trigger"));
+        promptButton.click();
+
+        Alert prompt = driver.switchTo().alert();
+        System.out.println(prompt.getText());
+        Assert.assertTrue(prompt.getText().contains("prompt"));
+
+        prompt.sendKeys("Alex");
+        prompt.accept();
+
+    }
+
+    // hover test
+    @Test
+    public void test07() {
+        driver.get(ConfigReader.URL);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        WebElement hoverLink = driver.findElement(By.cssSelector("#root > div > div.sidebar > a:nth-child(6)"));
+        hoverLink.click();
+
+        WebElement hoverButton = driver.findElement(By.cssSelector("#root > div > div.content > div > div.container-table.text-center.container > div > button"));
+//        hoverButton.click();
+        Actions actions = new Actions(driver);
+//        actions.moveToElement(hoverButton);
+//        actions.build();
+//        actions.perform();
+        actions.moveToElement(hoverButton).build().perform();
+
+        WebElement itemMenu = driver.findElement(By.cssSelector("#Bird"));
+        itemMenu.click();
+
+        WebElement resultText = driver.findElement(By.id("result"));
+        System.out.println(resultText.getText());
+        Assert.assertEquals(resultText.getText(), "You last clicked the Bird");
 
     }
 
