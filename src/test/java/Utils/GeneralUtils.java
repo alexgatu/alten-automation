@@ -154,4 +154,17 @@ public class GeneralUtils {
         return sb.toString();
     }
 
+    public static String determineInputData(String username) {
+        String user="";
+
+        try {
+            int usernameLength = Integer.parseInt(username);
+            user = getRandomStringByLength(usernameLength, 1);
+        }
+        catch (NumberFormatException nfe) {
+            user = username;
+        }
+        return user;
+    }
+
 }
