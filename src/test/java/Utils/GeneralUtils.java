@@ -90,4 +90,58 @@ public class GeneralUtils {
         }
     }
 
+    // Length - number of characters to be generated
+    // charsetType - 1 for lowercase, 2 for uppercase, 3 for numbers, 4 for special chars, and 5 for all types
+    public static String getRandomStringByLength (int length, int charsetType) {
+        StringBuilder sb = new StringBuilder();
+        String charsetLowercase = "abcdefghijklmnopqrstuvwxyz";
+        String charsetUppercase = charsetLowercase.toUpperCase();
+        String charsetNumbers = "0123456789";
+        String charsetSpecial ="!@#$%^&*()-+_";
+
+        // 5->10: 5 + Math.random() * 5
+        // x->y: x + Math.random() * (y-x)
+        String defaultCharset = charsetLowercase;
+        switch (charsetType) {
+            // lowercase
+            case 1:
+            {
+                defaultCharset = charsetLowercase;
+                break;
+            }
+            // uppercase
+            case 2: {
+                defaultCharset = charsetUppercase;
+                break;
+            }
+            // numbers
+            case 3: {
+                defaultCharset = charsetNumbers;
+                break;
+            }
+            // special chars
+            case 4: {
+                defaultCharset = charsetSpecial;
+                break;
+            }
+            // all charset
+            case 5 : {
+                defaultCharset = charsetLowercase + charsetUppercase + charsetNumbers + charsetSpecial;
+                break;
+            }
+            default: {
+                System.out.println("Only 5 charsets allowed, defaulting to lowercase only!");
+            }
+        }
+
+        for (int i = 0; i < length ; i++) {
+//            System.out.println("Length of charset is " + charsetLowercase.length());
+//            System.out.println("Random number between 0 and last index is " + (int)(Math.random() * (charsetLowercase.length()-1)));
+            char randomChar = defaultCharset.charAt((int)(Math.random() * (defaultCharset.length() -1)));
+            sb.append(randomChar);
+        }
+
+        return sb.toString();
+    }
+
 }
