@@ -1,8 +1,9 @@
-package Tests.TestNgTests.LoginTests;
+package Tests.TestNgTests.LoginTests.Pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.testng.Assert;
 
 public class LoginPage {
 
@@ -15,10 +16,10 @@ public class LoginPage {
     @FindBy(how = How.CSS, using = "#login-form > div.form-group.row.row-cols-lg-true > label")
     private WebElement passwordLabel;
 
-    @FindBy(how = How.NAME, using = "username")
+    @FindBy(how = How.CSS, using = "#input-login-username")
     private WebElement usernameInput;
 
-    @FindBy(how = How.NAME, using = "password")
+    @FindBy(how = How.CSS, using = "#input-login-password")
     private WebElement passwordInput;
 
     @FindBy(how = How.CSS, using = "#login-form > div:nth-child(3) > div.text-left.col-lg > button")
@@ -39,6 +40,30 @@ public class LoginPage {
         passwordInput.clear();
         passwordInput.sendKeys(password);
         submitButton.submit();
+    }
+
+    public boolean checkCurrentPage() {
+        boolean currentPageOK = true;
+        if (!authText.getText().equals("Authentication")) {
+            currentPageOK = false;
+        }
+        if (!usernameLabel.getText().equals("Username")) {
+            currentPageOK = false;
+        }
+        if (!passwordLabel.getText().equals("Password")) {
+            currentPageOK = false;
+        }
+        return currentPageOK;
+    }
+
+    public void checkCurrentPage2() {
+        Assert.assertEquals(authText.getText(), "Authentication");
+        Assert.assertEquals(usernameLabel.getText(), "Username");
+        Assert.assertEquals(passwordLabel.getText(), "Password");
+    }
+
+    public void validateUserError(String userError) {
+        Assert.assertEquals(userErr.getText(), userError);
     }
 
 }
