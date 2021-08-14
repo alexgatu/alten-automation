@@ -91,7 +91,13 @@ public class GeneralUtils {
     }
 
     // Length - number of characters to be generated
-    // charsetType - 1 for lowercase, 2 for uppercase, 3 for numbers, 4 for special chars, and 5 for all types
+    // charsetType
+    // 1 - lowercase
+    // 2 - uppercase
+    // 3 - numbers
+    // 4 - special chars
+    // 5 - all types
+    // 6 - alphanumeric
     public static String getRandomStringByLength (int length, int charsetType) {
         StringBuilder sb = new StringBuilder();
         String charsetLowercase = "abcdefghijklmnopqrstuvwxyz";
@@ -128,6 +134,10 @@ public class GeneralUtils {
             case 5 : {
                 defaultCharset = charsetLowercase + charsetUppercase + charsetNumbers + charsetSpecial;
                 break;
+            }
+            // alphanumeric
+            case 6 : {
+                defaultCharset = charsetLowercase + charsetNumbers;
             }
             default: {
                 System.out.println("Only 5 charsets allowed, defaulting to lowercase only!");
