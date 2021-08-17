@@ -11,6 +11,8 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -69,6 +71,35 @@ public class UsernameTestsPOM extends BaseClass {
 
     @Test(dataProvider = "jsonDp")
     public void jsonTest(LoginModel lm) {
+        driver.get(ConfigReader.URL + "#/login");
+        LoginPage lp = PageFactory.initElements(driver, LoginPage.class);
+        lp.login(lm.getAccount().getUsername(), lm.getAccount().getPassword());
+        lp.validateErrors(lm.getUserError(), lm.getPasswordError(), lm.getGeneralError());
+    }
+
+    private LoginModel readModel(File f) {
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(LoginModel.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            return (LoginModel) unmarshaller.unmarshal(f);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @DataProvider(name = "xmlDp")
+    public Iterator<Object[]> xmlDp() {
+        Collection<Object []> dp = new ArrayList<>();
+        File f = new File("src\\test\\resources\\data\\testdata.xml");
+        LoginModel lm = readModel(f);
+        dp.add(new Object[] {lm} );
+        return dp.iterator();
+    }
+
+    @Test(dataProvider = "xmlDp")
+    public void xmlTest(LoginModel lm) {
         driver.get(ConfigReader.URL + "#/login");
         LoginPage lp = PageFactory.initElements(driver, LoginPage.class);
         lp.login(lm.getAccount().getUsername(), lm.getAccount().getPassword());

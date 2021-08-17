@@ -1,0 +1,9 @@
+{
+  "account" : {
+    "username": "",
+    "password": ""
+  },
+  "userError": "Username is required!",
+  "passwordError": "Password is required!",
+  "generalError": " "
+}

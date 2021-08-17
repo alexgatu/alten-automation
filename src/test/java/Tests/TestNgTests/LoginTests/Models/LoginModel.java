@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
+import javax.xml.bind.annotation.XmlRootElement;
+
+@Getter @Setter @NoArgsConstructor @XmlRootElement
 public class LoginModel {
 
     private AccountModel account;
