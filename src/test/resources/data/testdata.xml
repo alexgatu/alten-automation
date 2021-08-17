@@ -1,7 +1,7 @@
 <loginModel>
     <account>
-        <username>user1</username>
-        <password>pass1</password>
+        <username>dinosaur</username>
+        <password>dinosaurpassword</password>
     </account>
     <userError/>
     <passwordError/>

@@ -6,6 +6,8 @@ import Tests.TestNgTests.LoginTests.Pages.LoginPage;
 import Utils.ConfigReader;
 import Utils.GeneralUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -15,9 +17,14 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public class UsernameTestsPOM extends BaseClass {
 
@@ -59,8 +66,8 @@ public class UsernameTestsPOM extends BaseClass {
     public Iterator<Object[]> jsonDp() {
         Collection<Object []> dp = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
-        File f = new File("src\\test\\resources\\data\\testdata.json");
         try {
+            File f = new File("src\\test\\resources\\data\\testdata.json");
             LoginModel lm = mapper.readValue(f, LoginModel.class);
             dp.add(new Object[] { lm } );
         } catch (IOException e) {
@@ -104,6 +111,34 @@ public class UsernameTestsPOM extends BaseClass {
         LoginPage lp = PageFactory.initElements(driver, LoginPage.class);
         lp.login(lm.getAccount().getUsername(), lm.getAccount().getPassword());
         lp.validateErrors(lm.getUserError(), lm.getPasswordError(), lm.getGeneralError());
+    }
+
+    @DataProvider(name = "csvDp")
+    public Iterator<Object[]> csvDp () {
+        Collection<Object[]> dp = new ArrayList<>();
+
+        try {
+            File f = new File("src\\test\\resources\\data\\testdata.csv");
+            Reader reader = Files.newBufferedReader(Paths.get(f.getAbsolutePath()));
+            CSVReader csvReader = new CSVReader(reader);
+            List<String[]> csvData = csvReader.readAll();
+            dp.addAll(csvData);
+
+        } catch (IOException | CsvException e) {
+            e.printStackTrace();
+        }
+        return dp.iterator();
+    }
+
+    @Test(dataProvider = "csvDp")
+    public void csvTest(String username, String password, String userErr, String passErr, String generalErr) {
+        driver.get(ConfigReader.URL + "#/login");
+        LoginPage lp = PageFactory.initElements(driver, LoginPage.class);
+        lp.login(username, password);
+        String ge = " ";
+        if (!generalErr.equals(""))
+            ge = generalErr;
+        lp.validateErrors(userErr, passErr, ge);
     }
 
 }
