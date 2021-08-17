@@ -1,6 +1,7 @@
 package Tests.TestNgTests.LoginTests;
 
 import Tests.TestNgTests.BaseClass;
+import Tests.TestNgTests.LoginTests.Models.AccountModel;
 import Utils.GeneralUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
