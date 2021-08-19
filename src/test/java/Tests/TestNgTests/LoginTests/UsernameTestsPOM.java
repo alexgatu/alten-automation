@@ -1,9 +1,11 @@
 package Tests.TestNgTests.LoginTests;
 
 import Tests.TestNgTests.BaseClass;
+import Tests.TestNgTests.LoginTests.Models.AccountModel;
 import Tests.TestNgTests.LoginTests.Models.LoginModel;
 import Tests.TestNgTests.LoginTests.Pages.LoginPage;
 import Utils.ConfigReader;
+import Utils.ExcelReader;
 import Utils.GeneralUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVReader;
@@ -21,10 +23,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class UsernameTestsPOM extends BaseClass {
 
@@ -139,6 +138,58 @@ public class UsernameTestsPOM extends BaseClass {
         if (!generalErr.equals(""))
             ge = generalErr;
         lp.validateErrors(userErr, passErr, ge);
+    }
+
+    @DataProvider(name = "xlsxDp")
+    public Iterator<Object[]> xlsxDp() {
+        Collection<Object[]> dp = new ArrayList<>();
+        try {
+            File f = new File("src\\test\\resources\\data\\testdata.xlsx");
+            String[][] excelData = ExcelReader.readExcelFile(f, "Sheet1", true, true);
+            Collections.addAll(dp, excelData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dp.iterator();
+    }
+
+    @Test(dataProvider = "xlsxDp")
+    public void xlsxTest(String username, String password, String userErr, String passErr, String generalErr) {
+        driver.get(ConfigReader.URL + "#/login");
+        LoginPage lp = PageFactory.initElements(driver, LoginPage.class);
+        lp.login(username, password);
+        lp.validateErrors(userErr, passErr, generalErr);
+    }
+
+    // Data provider with LoginModel for excel
+    @DataProvider(name = "xlsxDp2")
+    public Iterator<Object[]> xlsxDp2() {
+        Collection<Object[]> dp = new ArrayList<>();
+        try {
+            File f = new File("src\\test\\resources\\data\\testdata.xlsx");
+            String[][] excelData = ExcelReader.readExcelFile(f, "Sheet1", true, true);
+            for (int i = 0; i< excelData.length; i++) {
+                String username = excelData[i][0];
+                String password = excelData[i][1];
+                String userErr = excelData[i][2];
+                String passErr = excelData[i][3];
+                String generalErr = excelData[i][4];
+                AccountModel am = new AccountModel(username, password);
+                LoginModel lm = new LoginModel(am, userErr, passErr, generalErr);
+                dp.add( new Object[] {lm});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dp.iterator();
+    }
+
+    @Test(dataProvider = "xlsxDp2")
+    public void xlsxModelTest(LoginModel lm) {
+        driver.get(ConfigReader.URL + "#/login");
+        LoginPage lp = PageFactory.initElements(driver, LoginPage.class);
+        lp.login(lm.getAccount().getUsername(), lm.getAccount().getPassword());
+        lp.validateErrors(lm.getUserError(), lm.getPasswordError(), lm.getGeneralError());
     }
 
 }
