@@ -24,6 +24,7 @@
         <opencsv-version>5.5.1</opencsv-version>
         <poi-version>3.17</poi-version>
         <lombok-version>1.18.20</lombok-version>
+        <mysql-version>8.0.26</mysql-version>
     </properties>
     <build>
         <plugins>
@@ -167,6 +168,11 @@
             <artifactId>poi-ooxml-schemas</artifactId>
             <version>${poi-version}</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-version}</version>
+        </dependency>
     </dependencies>
 </project>

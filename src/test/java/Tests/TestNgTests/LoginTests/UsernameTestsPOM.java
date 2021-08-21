@@ -23,6 +23,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.*;
 import java.util.*;
 
 public class UsernameTestsPOM extends BaseClass {
@@ -186,6 +187,42 @@ public class UsernameTestsPOM extends BaseClass {
 
     @Test(dataProvider = "xlsxDp2")
     public void xlsxModelTest(LoginModel lm) {
+        driver.get(ConfigReader.URL + "#/login");
+        LoginPage lp = PageFactory.initElements(driver, LoginPage.class);
+        lp.login(lm.getAccount().getUsername(), lm.getAccount().getPassword());
+        lp.validateErrors(lm.getUserError(), lm.getPasswordError(), lm.getGeneralError());
+
+    }
+
+    @DataProvider(name = "sqlDp")
+    public Iterator<Object[]> sqlDp() {
+        Collection<Object[]> dp = new ArrayList<>();
+        String query = "SELECT * FROM alten_auto.login;";
+        try {
+            Connection con= DriverManager.getConnection(
+                    ConfigReader.DB_JDBC,ConfigReader.DB_USER,ConfigReader.DB_PASS);
+            Statement statement = con.createStatement();
+            ResultSet results = statement.executeQuery(query);
+            while (results.next()) {
+                String username = GeneralUtils.sanitizeNullString(results.getString("username"));
+                String password = GeneralUtils.sanitizeNullString(results.getString("password"));
+                String userErr = GeneralUtils.sanitizeNullString(results.getString("usererr"));
+                String passErr = GeneralUtils.sanitizeNullString(results.getString("passerr"));
+                String generalErr = GeneralUtils.sanitizeNullString(results.getString("generalerr"));
+                AccountModel am = new AccountModel(username, password);
+                LoginModel lm = new LoginModel(am, userErr, passErr, generalErr);
+                dp.add( new Object[] {lm});
+            }
+            statement.close();
+            con.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return dp.iterator();
+    }
+
+    @Test(dataProvider = "sqlDp")
+    public void sqlDataTest(LoginModel lm) {
         driver.get(ConfigReader.URL + "#/login");
         LoginPage lp = PageFactory.initElements(driver, LoginPage.class);
         lp.login(lm.getAccount().getUsername(), lm.getAccount().getPassword());

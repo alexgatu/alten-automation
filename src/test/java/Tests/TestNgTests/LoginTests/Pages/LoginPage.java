@@ -69,7 +69,11 @@ public class LoginPage {
     public void validateErrors(String ue, String pe, String ge) {
         Assert.assertEquals(userErr.getText(), ue);
         Assert.assertEquals(passErr.getText(), pe);
-        Assert.assertEquals(generalErr.getText(), ge);
+        String genErr = " ";
+        if (!ge.equals("")) {
+            genErr = ge;
+        }
+        Assert.assertEquals(generalErr.getText(), genErr);
     }
 
 }

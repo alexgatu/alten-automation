@@ -167,4 +167,11 @@ public class GeneralUtils {
         return user;
     }
 
+    public static String sanitizeNullString(String dbString) {
+        if (dbString == null) {
+            return "";
+        }
+        return dbString;
+    }
+
 }
